@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'list.dart';
 
+
+
+
+
+
 void main() {
   runApp(MyApp());
 }
@@ -46,7 +51,7 @@ class EmailLoginPage extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(
-                    fontFamily: '', // Replace with your font family
+                    fontFamily: '', 
                     fontSize: 16.0,
                     color: Colors.blue,
                   ),
@@ -64,7 +69,6 @@ class EmailLoginPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Implement login functionality
                    Navigator.push(
                      context,
                      MaterialPageRoute(builder: (context) => EmailListPage()),
