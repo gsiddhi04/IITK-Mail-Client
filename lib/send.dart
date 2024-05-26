@@ -28,7 +28,7 @@ Future<void> smtpExample() async {
       htmlText: '<p>hello <b>world</b></p>',
     )
       ..from = [MailAddress('My name', 'siddhig23@iitk.ac.in')]
-      ..to = [MailAddress('Your name', 'siddhig23@iitk.ac.in')]
+      ..to = [MailAddress('Your name', 'bmerchant22@iitk.ac.in')]
       ..subject = 'My first message';
     final mimeMessage = builder.buildMimeMessage();
     final sendResponse = await client.sendMessage(mimeMessage);
