@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'list.dart';
 
 
 void main() {
+  WidgetFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -23,6 +26,54 @@ class MyApp extends StatelessWidget {
 
 class EmailLoginPage extends StatelessWidget {
   const EmailLoginPage({super.key});
+
+  @override
+  _EmailLoginPageState createState()=> _EmailLoginPageState
+}
+
+class _EmailLoginPageState extends State<EmailLoginPage>{
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _login() async{
+    try{
+      final UserCredentials userCredential = await FirebaseAuth.instance,signInWithEmailAndPassword(
+        Email: _emailcontroller.text,
+        Password: _passwordController.text,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EmailListPage()),
+      );
+    } on FirebaseAuthException catch(e){
+      if (e.code == 'user-not-found'){
+        _showErrorDialog('Invalid email. Try Again!');
+      }else if (e.code=='wrong-password'){
+        _showErrorDialog('Wrong credentials.')
+      }
+    }
+  }
+
+  void _showErrorDialog(String message){
+    showDialog(
+      context: context,
+      builder: (buildContext context){
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: (){
+                Navigator.of(context).pop();
+              }
+            )
+          ]
+        )
+      }
+    )
+  }
+}
 
   @override
   Widget build(BuildContext context) {
