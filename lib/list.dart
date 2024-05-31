@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'send.dart';
 import 'view.dart';
 
+
 class EmailListPage extends StatefulWidget {
+  final String email;
+  final String password;
+  EmailListPage({required this.email,required this.password});
   @override
   _EmailListPageState createState() => _EmailListPageState();
 }
 
 class _EmailListPageState extends State<EmailListPage> {
   final List<Map<String, String>> inboxEmails = [
-    {'subject': 'Meeting Reminder', 'content': 'Don\'t forget the meeting at 10 AM.'},
-    {'subject': 'Lunch Plans', 'content': 'Are we still on for lunch today?'},
-    {'subject': 'Project Update', 'content': 'The project is on track for completion.'},
+    
   ];
 
   final List<Map<String, String>> sentEmails = [
-    {'subject': 'Monthly Report', 'content': 'The monthly report is attached.'},
-    {'subject': 'Party Invitation', 'content': 'You are invited to our annual party.'},
+    
   ];
 
   String searchQuery = '';
@@ -37,16 +39,12 @@ class _EmailListPageState extends State<EmailListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Email List'),
+        backgroundColor: Colors.teal,
         actions: [
           IconButton(
             icon: const Icon(Icons.create),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ComposeEmailPage(),
-                ),
-              );
+             null;
             },
           ),
           IconButton(
@@ -62,56 +60,68 @@ class _EmailListPageState extends State<EmailListPage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: const InputDecoration(
-                labelText: 'Search',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.white, Colors.tealAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Search',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    searchQuery = value;
+                  });
+                },
               ),
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
-                });
-              },
             ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Inbox',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Expanded(
+              child: ListView(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Inbox',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                ...filteredInboxEmails.map((email) => EmailListTile(email: email)).toList(),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Sent',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ...filteredInboxEmails.map((email) => EmailListTile(email: email)).toList(),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Sent',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                ...filteredSentEmails.map((email) => EmailListTile(email: email)).toList(),
-              ],
+                  ...filteredSentEmails.map((email) => EmailListTile(email: email)).toList(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ComposeEmailPage(),
+              builder: (context) => ComposeEmailPage(email: widget.email,password: widget.password,),
             ),
           );
         },
+        backgroundColor: Colors.teal,
         child: const Icon(Icons.add),
       ),
     );
@@ -156,48 +166,6 @@ class EmailListTile extends StatelessWidget {
   }
 }
 
-class ComposeEmailPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Compose Email'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'To',
-              ),
-            ),
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Subject',
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Content',
-                ),
-                maxLines: null,
-                expands: true,
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Add action to send email
-              },
-              child: const Text('Send'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class DraftsPage extends StatelessWidget {
   final List<Map<String, String>> drafts = [
@@ -239,3 +207,6 @@ class DraftsPage extends StatelessWidget {
     );
   }
 }
+
+
+
