@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_page/view.dart';
-import 'list.dart';
+// import 'package:login_page/view.dart';
+// import 'list.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'send.dart';
 
