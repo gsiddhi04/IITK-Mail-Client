@@ -8,7 +8,7 @@ class ComposeEmailPage extends StatelessWidget {
   final TextEditingController emailcontroller=TextEditingController();
   final TextEditingController subjectcontroller=TextEditingController();
   final TextEditingController bodycontroller=TextEditingController();
-  ComposeEmailPage({required this.email,required this.password});
+  ComposeEmailPage({super.key, required this.email,required this.password});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +82,7 @@ class ComposeEmailPage extends StatelessWidget {
       }
       final builder = MessageBuilder.prepareMultipartAlternativeMessage(
         plainText: body,
-        htmlText: '<p>${body}</p>',
+        htmlText: '<p>$body</p>',
       )
         ..from = [MailAddress('My name', email)]
         ..to = [MailAddress('Recipient', recipient)]
@@ -91,12 +91,12 @@ class ComposeEmailPage extends StatelessWidget {
       final sendResponse = await client.sendMessage(mimeMessage);
       if (sendResponse.isOkStatus) {
         SnackBar(backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                content: Text('Email Sent Successfully',
+                content: const Text('Email Sent Successfully',
         ),);
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to send email.')),
+          const SnackBar(content: Text('Failed to send email.')),
         );
       }
     } on SmtpException catch (e) {

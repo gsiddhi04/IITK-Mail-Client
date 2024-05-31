@@ -6,7 +6,7 @@ import 'view.dart';
 class EmailListPage extends StatefulWidget {
   final String email;
   final String password;
-  EmailListPage({required this.email,required this.password});
+  const EmailListPage({super.key, required this.email,required this.password});
   @override
   _EmailListPageState createState() => _EmailListPageState();
 }
@@ -131,7 +131,7 @@ class _EmailListPageState extends State<EmailListPage> {
 class EmailListTile extends StatelessWidget {
   final Map<String, String> email;
 
-  EmailListTile({required this.email});
+  const EmailListTile({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -172,6 +172,8 @@ class DraftsPage extends StatelessWidget {
     {'subject': 'Draft 1', 'content': 'This is a draft email content.'},
     {'subject': 'Draft 2', 'content': 'Another draft email content.'},
   ];
+
+  DraftsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

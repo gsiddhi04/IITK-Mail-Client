@@ -9,7 +9,7 @@ class MailListPage extends StatefulWidget {
   final String name;
   final String message;
   final DateTime date;
-  MailListPage({required this.name,required this.message, required this.date});
+  const MailListPage({super.key, required this.name,required this.message, required this.date});
   @override
   _MailListPageState createState() => _MailListPageState();
 }
@@ -78,11 +78,11 @@ class _MailListPageState extends State<MailListPage> {
                 builder: (context) => ComposeEmailPage(email: email.text ,password:password.text)), // Navigate to ComposePage
           );
         },
+        backgroundColor: const Color.fromARGB(255, 20, 3, 170),
         child: Icon(Icons.add),
-        backgroundColor: Color.fromARGB(255, 20, 3, 170),
       ),
       appBar: AppBar(
-        title: Text('Mail List'),
+        title: const Text('Mail List'),
       ),
       body: ListView.builder(
         itemCount: emails.length,
@@ -140,11 +140,11 @@ class _MailItemState extends State<MailItem> {
         color: Theme.of(context).colorScheme.primaryContainer,
         child: ListTile(
           leading: CircleAvatar(
+            backgroundColor: Colors.blue,
             child: Text(
               widget.name[0], // Get the first character of the name
               style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: Colors.blue, // Background color for the avatar
+            ), // Background color for the avatar
           ),
           title: Row(
             children: [

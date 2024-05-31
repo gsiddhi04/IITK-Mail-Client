@@ -6,7 +6,7 @@ import 'list.dart';
 void main() {
   // WidgetFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class EmailLoginPage extends StatelessWidget {
-   EmailLoginPage();
+   EmailLoginPage({super.key});
   final TextEditingController email=TextEditingController();
   final TextEditingController password=TextEditingController();
 
